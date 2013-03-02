@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(:version => 20130302082747) do
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "password_digest"
-    t.string   "remoeber_token"
+    t.string   "remember_token"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
