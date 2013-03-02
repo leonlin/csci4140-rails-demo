@@ -1,0 +1,48 @@
+<%= form_tag images_path, method: 'get' do %>
+  <%= label_tag :dimemsion %>
+  <%= number_field_tag :rows, @config[:rows], in: 1...10 %>
+  <%= label_tag :x %>
+  <%= number_field_tag :cols, @config[:cols], in: 1...10 %>
+  <%= select_tag :sort, options_for_select(@sorts), prompt: 'Sort By' %>
+  <%= select_tag :order, options_for_select(@orders), prompt: 'Order' %>
+  <%= submit_tag :change %>
+<% end %>
+
+
+<%= form_tag image_path(id:0), method: 'delete' do %>
+<table>
+  <% @images.each_index do |i| %>
+    <% if i % @config[:cols] == 0 %>
+      <tr>
+    <% end %>
+    <td>
+      <%= link_to image_tag('/'+@images[i].thumbnail, alt: @images[i].description), ''+@images[i].path %>
+      <% if signed_in? %>
+        <%= check_box_tag "images[#{@images[i].id}]" %>
+      <% end %>  
+      <%= label_tag @images[i].name %>
+    </td>
+    <% if i % @config[:cols] == @config[:cols]-1 %>
+      </tr>
+    <% end %>
+  <% end %>
+</table>
+<% if signed_in? %>
+  <%= hidden_field_tag :rows, @config[:rows] %>
+  <%= hidden_field_tag :cols, @config[:cols] %>
+  <%= hidden_field_tag :sort, @config[:sort] %>
+  <%= hidden_field_tag :orders, @config[:order] %>
+  <%= submit_tag 'Remove selected' %>
+<%end %>
+<%end %>
+
+<%= form_tag images_path, method: 'get' do %>
+<%= hidden_field_tag :rows, @config[:rows] %>
+<%= hidden_field_tag :cols, @config[:cols] %>
+<%= hidden_field_tag :sort, @config[:sort] %>
+<%= hidden_field_tag :orders, @config[:order] %>
+<%= label_tag :page %>
+<%= number_field_tag :page, @config[:page], in: 1..@config[:total] %>
+<%= label_tag "of #{@config[:total]}" %>
+<%= submit_tag 'Go to page' %>
+<% end %>

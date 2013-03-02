@@ -1,0 +1,15 @@
+<%= form_tag image_path(@image), method: 'put' do %>
+  <% options = ['Overwrite the existing file.', 'Rename the uploading file.', 'Cancel the current upload.'] %>
+  <% options.each_index do |i| %>
+    <br>
+    <%= radio_button_tag 'options', i, i==0 %>
+    <%= label_tag options[i] %>
+    <% if i==1 %>
+      <%= label_tag 'new filename' %>
+      <%= text_field_tag :new_name %>
+    <% end %>
+  <% end %>
+  <br>
+  <%= hidden_field_tag :image_id, @image.id %>
+  <%= submit_tag 'proceed' %>
+<% end %>

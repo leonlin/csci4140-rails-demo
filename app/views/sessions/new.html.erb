@@ -1,0 +1,13 @@
+<%= form_for(:session, url: sessions_path) do |f| %>
+  <%= f.label :username %>
+  <%= f.text_field :name %>
+  <br>
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+
+  <br>
+  <%= f.submit "Submit" %>
+  <br>
+<% end %>
+
+<%= link_to 'View album (read-only)', images_path %>

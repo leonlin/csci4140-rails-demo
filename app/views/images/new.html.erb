@@ -1,0 +1,12 @@
+<% flash.each do |key, value| %>
+  <p><%= value %></p>
+<% end %>
+<%= form_tag images_path, multipart: true do %>
+  <%= file_field_tag :upload %>
+  <br>
+  <%= label_tag 'description' %>
+  <%= text_field_tag :discription %>
+  <br>
+  <%= submit_tag 'Upload' %>
+<% end %>
+<%= link_to 'Back to display panel', display_path %>
