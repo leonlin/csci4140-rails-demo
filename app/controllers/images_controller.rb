@@ -62,7 +62,8 @@ class ImagesController < ApplicationController
     image = Image.find(params[:id])
     if @choice == 0
       image.upload_finalize(image.name)
-      image.destroy
+      image.pending = false
+      image.save
       redirect_to images_path(@config)
     elsif @choice == 1
       image.upload_finalize(params[:new_name])

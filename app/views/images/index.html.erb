@@ -16,7 +16,7 @@
       <tr>
     <% end %>
     <td>
-      <%= link_to image_tag('/'+@images[i].thumbnail, alt: @images[i].description), ''+@images[i].path %>
+      <%= link_to image_tag('/'+@images[i].thumbnail, alt: @images[i].description, title: @images[i].description), ''+@images[i].path %>
       <% if signed_in? %>
         <%= check_box_tag "images[#{@images[i].id}]" %>
       <% end %>  

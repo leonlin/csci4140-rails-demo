@@ -4,6 +4,7 @@ class Image < ActiveRecord::Base
   validates_length_of :description, maximum: 50, allow_blank: true
 
   def self.save(upload)
+    if upload.nil? then return {status: 'fail', msg: 'no selected file' } end
     size = upload.size
     if size > 1000000 then return {status: 'fail', msg: 'size too large'} end
     extname = File.extname(name)
@@ -42,7 +43,7 @@ class Image < ActiveRecord::Base
       new_path = path[0, path.size-tail]
       new_thumbnail = path[0, thumbnail.size-tail]
     else
-      name = new_name
+      self.name = new_name
       new_path = File.join('image/', name)
       new_thumbnail = new_path+'tn'
     end
