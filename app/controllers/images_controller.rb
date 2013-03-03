@@ -85,12 +85,14 @@ class ImagesController < ApplicationController
     @config[:sort] = params[:sort]
     @config[:page] = 1
     @deleting_images = params[:images]
-    @deleting_images.each do |i|
-      image = Image.find(i[0])
-      if image
-        File.delete('public/'+image.path)
-        File.delete('public/'+image.thumbnail)
-        image.destroy
+    if !@deleting_images.nil?
+      @deleting_images.each do |i|
+        image = Image.find(i[0])
+        if image
+          File.delete('public/'+image.path)
+          File.delete('public/'+image.thumbnail)
+          image.destroy
+        end
       end
     end
     redirect_to images_path(@config)
