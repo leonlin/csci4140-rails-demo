@@ -7,10 +7,10 @@ class Image < ActiveRecord::Base
     if upload.nil? then return {status: 'fail', msg: 'no selected file' } end
     size = upload.size
     if size > 1000000 then return {status: 'fail', msg: 'size too large'} end
-    extname = File.extname(name)
-    #if !['jpg', 'png', 'gif'].include? extname
-    #  return {status: 'fail', msg: 'wrong extension'}
-    #end
+    extname = File.extname(upload.original_filename)
+    if !['jpg', 'png', 'gif'].include? extname
+      return {status: 'fail', msg: 'wrong extension'}
+    end
     name = upload.original_filename
     directory = 'public/image'
     path = File.join(directory, name)
