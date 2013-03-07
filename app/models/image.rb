@@ -8,7 +8,7 @@ class Image < ActiveRecord::Base
     size = upload.size
     if size > 1000000 then return {status: 'fail', msg: 'size too large'} end
     extname = File.extname(upload.original_filename)
-    if !['jpg', 'png', 'gif'].include? extname
+    if !['.jpg', '.png', '.gif'].include? extname
       return {status: 'fail', msg: 'wrong extension'}
     end
     name = upload.original_filename
